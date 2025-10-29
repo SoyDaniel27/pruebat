@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Producto</title>
+</head>
+<body>
+    <h2>{% if modo == 'modificar' %}Editar Producto{% else %}Agregar Producto{% endif %}</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  
+  <label>Nombre:</label><br>
+  <input type="text" name="nombre" value="{{ producto.nombre|default:'' }}" required><br><br>
+
+  <label>Descripción:</label><br>
+  <textarea name="descripcion">{{ producto.decripcion|default:'' }}</textarea><br><br>
+
+  <label>Precio:</label><br>
+  <input type="number" name="precio" step="0.01" value="{{ producto.precio|default:'' }}" required><br><br>
+
+  <label>Disponible:</label>
+  <input type="checkbox" name="disponibilidad" {% if producto.disponibilidad %}checked{% endif %}><br><br>
+
+  <button type="submit">
+    {% if modo == 'modificar' %}Editar{% else %}Agregar{% endif %}
+  </button>
+</form>
+</body>
+</html>
